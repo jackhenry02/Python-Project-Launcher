@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 # Step 1: Create project folder
 os.makedirs("MyNewProject/src", exist_ok=True)
@@ -70,7 +71,21 @@ with open("MyNewProject/tests/test_main.py", "w") as f:
 # Step 9: Create virtual environment
 os.system("python3 -m venv MyNewProject/venv")
 
-# Step 10: Create the folder structure
+# Step 10: Ask for new branch name and create the branch
+branch_name = input("Enter the name of the new branch (or press Enter to skip): ")
+
+if branch_name:
+    # Initialize git repository if not already initialized
+    os.system("git init MyNewProject")
+    
+    # Create and switch to the new branch
+    subprocess.run(["git", "checkout", "-b", branch_name], cwd="MyNewProject")
+    print(f"Switched to new branch: {branch_name}")
+else:
+    print("No new branch created, working on the main branch.")
+
+# Step 11: Create the folder structure
 os.makedirs("MyNewProject/venv", exist_ok=True)
 
 print("Project structure has been set up!")
+
